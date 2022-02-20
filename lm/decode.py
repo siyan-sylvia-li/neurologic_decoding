@@ -62,20 +62,23 @@ def main():
     eos_ids = [tokenizer.eos_token_id] + period_id
     PAD_ID = tokenizer.convert_tokens_to_ids('<pad>')
 
-    with open(args.input_path) as fin:
-        input_lines = [line.split('=')[0] + "=" for line in fin.read().splitlines()]
+    # with open(args.input_path) as fin:
+    #     input_lines = [line.split('=')[0] + "=" for line in fin.read().splitlines()]
+    #
+    # def read_constraints(file_name):
+    #     cons_list = []
+    #     with open(file_name, 'r') as f:
+    #         for line in f:
+    #             cons = []
+    #             for concept in json.loads(line):
+    #                 cons.append([f' {c}' for c in concept])
+    #             cons_list.append(cons)
+    #     return cons_list
+    #
+    # constraints_list = read_constraints(args.constraint_file)
 
-    def read_constraints(file_name):
-        cons_list = []
-        with open(file_name, 'r') as f:
-            for line in f:
-                cons = []
-                for concept in json.loads(line):
-                    cons.append([f' {c}' for c in concept])
-                cons_list.append(cons)
-        return cons_list
-
-    constraints_list = read_constraints(args.constraint_file)
+    input_lines = [" impress cry new ="]
+    constraints_list = [[[" impressive", " impressed", " impressing"], [" cry", " cried", " crying", " cries"], [" new"]]]
 
     input_lines = [tokenizer.convert_tokens_to_ids(tokenizer.tokenize(x)) for x in input_lines]
     constraints_list = utils_seq2seq.tokenize_constraints(tokenizer, constraints_list)
